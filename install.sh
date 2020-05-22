@@ -83,6 +83,12 @@ install_deb() {
     if [  $? -ne 0 ] ; then
         exit 0;
     fi
+    
+    if "$(uname -m)" == "aarch64" ; then 
+      echo "Aarch64 detected, downloading java for aarch64  (Expirimental)"
+      curl -fSL --progress-bar -o /usr/local/fusionauth/java/OpenJDK14U-jdk_aarch64_linux_hotspot_14.0.1_7.tar.gz "https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk-14.0.1%2B7/OpenJDK14U-jdk_aarch64_linux_hotspot_14.0.1_7.tar.gz"
+      tar -zxvf OpenJDK14U-jdk_aarch64_linux_hotspot_14.0.1_7.tar.gz -C /usr/local/fusionauth/java
+    fi
 
     echo ""
     echo "Install is complete. Time for tacos."
