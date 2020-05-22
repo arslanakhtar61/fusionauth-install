@@ -92,6 +92,7 @@ install_deb() {
       # Since we detected ARM, remove the preinstalled jdk.
       rm -rf /usr/local/fusionauth/java/jdk-14.0.1+7
       # Download the aarch64 java
+      mkdir /usr/local/fusionauth/java
       curl -fSL --progress-bar -o /usr/local/fusionauth/java/OpenJDK14U-jdk_aarch64_linux_hotspot_14.0.1_7.tar.gz "https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk-14.0.1%2B7/OpenJDK14U-jdk_aarch64_linux_hotspot_14.0.1_7.tar.gz"
       # Unpack the tarball
       tar -zxvf /usr/local/fusionauth/java/OpenJDK14U-jdk_aarch64_linux_hotspot_14.0.1_7.tar.gz -C /usr/local/fusionauth/java
