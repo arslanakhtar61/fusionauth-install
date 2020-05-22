@@ -84,11 +84,21 @@ install_deb() {
         exit 0;
     fi
     
-    if "$(uname -m)" == "aarch64" ; then 
+    # Expirimental Aarch64 support.
+    # Uses https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot
+    # tested on NanoPi Neo2 (1gb) using Dietpi (www.dietpi.com)
+    if [ "$(uname -m)" = "aarch64" ]; then 
       echo "Aarch64 detected, downloading java for aarch64  (Expirimental)"
+      # Since we detected ARM, remove the preinstalled jdk.
+      rm -rf /usr/local/fusionauth/java/jdk-14.0.1+7
+      # Download the aarch64 java
       curl -fSL --progress-bar -o /usr/local/fusionauth/java/OpenJDK14U-jdk_aarch64_linux_hotspot_14.0.1_7.tar.gz "https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk-14.0.1%2B7/OpenJDK14U-jdk_aarch64_linux_hotspot_14.0.1_7.tar.gz"
-      tar -zxvf OpenJDK14U-jdk_aarch64_linux_hotspot_14.0.1_7.tar.gz -C /usr/local/fusionauth/java
+      # Unpack the tarball
+      tar -zxvf /usr/local/fusionauth/java/OpenJDK14U-jdk_aarch64_linux_hotspot_14.0.1_7.tar.gz -C /usr/local/fusionauth/java
+      # Remove the tarball
+      rm -rf /usr/local/fusionauth/java/OpenJDK14U-jdk_aarch64_linux_hotspot_14.0.1_7.tar.gz
     fi
+
 
     echo ""
     echo "Install is complete. Time for tacos."
